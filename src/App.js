@@ -10,14 +10,20 @@ function App() {
 
 
 
-  const [resultState, serResultState] = useState('');
+  const [resultState, setResultState] = useState([]);
   const [searchState, setSearchState] = useState('');
   
   //change handler
   async function searchbarChangeHandler(event){
-    console.log("Event target value ", event.target.value);
     setSearchState(event.target.value);
-    console.log(await autosuggest(event))
+    if (event.target.value.length >= 1 ){
+      const data = await autosuggest(event)
+      console.log(data);
+      setResultState(data);
+      console.log(resultState)
+    } else {
+      setResultState([]);
+    }
   }
 
   return (
@@ -25,7 +31,11 @@ function App() {
       <SearchBar formState={searchState}
       onChange = {searchbarChangeHandler}
       />
-
+      <div>
+      {resultState.map(element => {
+        return <h1>{element.name}</h1>
+      })}
+      </div>
     </div>
   );
 }
