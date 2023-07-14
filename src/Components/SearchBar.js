@@ -5,7 +5,7 @@ function SearchBar(props){
     <form>
         <input
         value={props.formState}
-        onChange={e => props.formSetter(e.target.value)}
+        onChange={props.onChange}
         ></input>
     </form>
     <div>
